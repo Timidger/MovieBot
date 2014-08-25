@@ -2,7 +2,6 @@ import time
 import praw
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
-import urllib.parse as urlparse
 
 # Registration
 # Add the github url when I get it
@@ -91,7 +90,7 @@ if __name__ == "__main__":
             posts = get_new_posts(bot, SUBREDDIT)
             posts = compare_to_backlog(posts)
             for post in posts:
-                add_to_backlog(post.title)
+                add_to_backlog(str(post.title))
                 identified = is_indentified(post)
                 easy = is_easy(post)
                 posted = already_posted(post, str(bot.user).lower())
@@ -120,6 +119,8 @@ if __name__ == "__main__":
                         break
             # Every 1/2 minute check the site
             time.sleep(30)
+    except Exception as e:
+        print(e)
     finally:
         bot.clear_authentication()
 
