@@ -85,8 +85,8 @@ if __name__ == "__main__":
     username, password = get_login_details(LOGIN_FILE)
     bot = login(username, password)
     print("Authenticated account: {}".format(username))
-    try:
-        while True:
+    while True:
+        try:
             posts = get_new_posts(bot, SUBREDDIT)
             posts = compare_to_backlog(posts)
             for post in posts:
@@ -119,8 +119,6 @@ if __name__ == "__main__":
                         break
             # Every 1/2 minute check the site
             time.sleep(30)
-    except Exception as e:
-        print(e)
-    finally:
-        bot.clear_authentication()
+        except Exception as e:
+            print(e)
 
